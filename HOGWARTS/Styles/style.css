@@ -1,0 +1,767 @@
+/* ზოგადი რესეტი */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* ძირითადი სხეული და შრიფტი */
+body {
+    font-family: 'Georgia', serif; 
+    /* ეს წესი ფარავს მთელ გვერდს, გარდა Hero სექციისა */
+    background: url('../images/HA_HALL.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0f0; 
+    line-height: 1.6;
+}
+
+/* ******************** HEADER სტილი ******************** */
+header {
+    background-color: rgba(65, 30, 0, 0.95); /* მუქი ყავისფერი */
+    color: white;
+    padding: 15px 50px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: #FFD700; /* ოქროსფერი */
+    font-size: 28px;
+}
+
+/* ლოგოს ბმულის სტილი */
+header h1 a.logo-link {
+    color: #FFD700; 
+    text-decoration: none; 
+    display: inline-block;
+    transition: opacity 0.3s;
+}
+
+header h1 a.logo-link:hover {
+    opacity: 0.8; 
+}
+
+/* ნავიგაციის სტილი (დიდი ეკრანისთვის) */
+header nav ul {
+    list-style: none; 
+}
+
+header nav ul li {
+    display: inline; 
+    margin-left: 25px;
+}
+
+header nav ul li a {
+    color: white; 
+    text-decoration: none; 
+    font-weight: 500;
+    transition: color 0.3s;
+}
+header nav ul li a:hover {
+    color: #FFD700; 
+}
+
+/* ჰამბურგერ ღილაკი (ნაგულისხმევად დამალული დიდ ეკრანზე) */
+.hamburger-menu-toggle {
+    display: none; 
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* ******************** HERO სექციის სტილი (ვიდეო ფონით) ******************** */
+#hero {
+    position: relative; 
+    overflow: hidden;
+    text-align: center;
+    padding: 0; 
+    color: white; 
+    min-height: 100vh;
+    background: none; /* Hero სექციაზე ფონს ვთიშავთ, რადგან ვიდეო ედება */
+}
+
+.hero-content {
+    position: relative; 
+    z-index: 10; 
+    padding-top: 100px; 
+    padding-bottom: 50px;
+    background-color: rgba(0, 0, 0, 0.4); 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+#hero h2 {
+    font-size: 48px; 
+    color: #FFD700; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+#hero img {
+    max-width: 600px; 
+    width: 100%; 
+    height: auto;
+    margin-top: 25px;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    border-radius: 50%; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}
+
+#hero img:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 10px rgba(255, 215, 0, 0.5) inset;
+}
+
+/* ******************** კურსების Preview სტილი ******************** */
+#courses-preview {
+    padding: 40px 50px;
+    text-align: center;
+    background-color: rgba(65, 30, 0, 0.85); 
+    color: white;
+}
+
+.course-cards-container {
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.course-cards {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 30px;
+    gap: 20px; 
+    margin-bottom: 20px;
+}
+
+.course-cards article {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 33%; 
+    flex-grow: 1; 
+    text-align: left;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.course-cards article:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #FFD700;
+}
+
+.course-cards article h4 {
+    color: #FFD700; 
+    margin-bottom: 10px;
+}
+
+.course-cards article a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ******************** FOOTER სტილი ******************** */
+footer {
+    background-color: #db9302; 
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 0; 
+}
+/* ******************** FOOTER ბმულების ლოგოები ******************** */
+footer #social-media a {
+    position: relative; /* რათა ::before სწორად იყოს პოზიციონირებული */
+    display: inline-block; /* რათა ლოგოს ადგილი ქონდეს */
+    padding-left: 20px; /* ტექსტსა და ლოგოს შორის დაშორება */
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+footer #social-media a:hover {
+    color: #FFD700;
+}
+
+footer #social-media a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Facebook-ის ლოგო */
+footer #social-media a[href*="facebook"]::before {
+    /* გამოიყენება PNG ლოგო */
+    background-image: url('../Images/facebook-logo.png'); 
+}
+
+/* WhatsApp-ის ლოგო (ჩვენ დროებით ვიყენებთ Font Awesome-ის სიმბოლოს მსგავს ვიზუალურ ეფექტს, რადგან WhatsApp-ის ლოგო არ არის ატვირთული) */
+footer #social-media a[href*="whatsapp"]::before {
+    /* მწვანე ფერი, როგორც WhatsApp-ს აქვს */
+    background-color: #25D366; 
+    border-radius: 50%;
+    /* თუ არ გაქვთ WhatsApp-ის ლოგოს ფაილი, შეგიძლიათ გამოიყენოთ სიმბოლო (მაგრამ ამას დამატებითი შრიფტები დასჭირდება).
+       ამ შემთხვევაში, უბრალოდ მწვანე წერტილს ან კვადრატს დავტოვებთ, როგორც ვიზუალურ მარკერს.
+       უფრო პროფესიონალური გადაწყვეტა მოითხოვს WhatsApp-ის ლოგოს ატვირთვას.
+    */
+    background-image: none;
+}
+/* ******************** PAGE TITLE სტილი ******************** */
+#page-title {
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: white;
+    padding: 40px 50px;
+    text-align: center;
+    border-bottom: 2px solid #FFD700;
+}
+#page-title h1 {
+    color: #FFD700;
+}
+
+/* ******************** ABOUT/COURSES/CONTACT სექციები ******************** */
+.about-section, .course-detail, .contact-form-section, .contact-info-section {
+    padding: 30px 50px;
+    margin: 20px auto;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #333; 
+}
+
+.about-section h2, .course-detail h2, .contact-form-section h2, .contact-info-section h2 {
+    color: #8f4c00; 
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.about-section h3 {
+    color: #292929;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* CONTACT გვერდის სპეციფიკური სტილები */
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    gap: 40px;
+}
+.contact-form-section, .contact-info-section {
+    flex: 1; 
+    max-width: none;
+}
+
+/* ფორმის ველების გაუმჯობესება */
+/* ფორმის ველების გაუმჯობესება */
+#contactForm label {
+    display: block; 
+    margin-top: 15px;
+    margin-bottom: 5px; 
+    font-weight: bold;
+    color: #333;
+}
+
+#contactForm input[type="text"],
+#contactForm input[type="email"],
+#contactForm input[type="tel"], /* ✅ ეს დაემატა */
+#contactForm select,
+#contactForm textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 15px; 
+}
+
+#contactForm textarea {
+    resize: vertical; 
+}
+/* ... დანარჩენი CSS ... */
+
+#contactForm textarea {
+    resize: vertical; 
+}
+
+/* ****************** ✅ გაგზავნა ღილაკის სტილი ****************** */
+#contactForm button {
+    background-color: #654321; /* ოქროსფერი */
+    color: #FFDF00; /* მუქი იისფერი */
+    font-size: 18px; /* გაზრდილი შრიფტი */
+    font-weight: bold;
+    padding: 15px 30px; /* გაზრდილი ზომა */
+    width: 100%; /* სრული სიგანე */
+    border: 2px solid transparent; 
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#contactForm button:hover {
+    background-color: #654321; /* მუქი ყავისფერი hover-ზე */
+    color: #FFD700; /* ოქროსფერი ტექსტი hover-ზე */
+    border: 2px solid #FFD700; /* ოქროსფერი საზღვარი */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+/* ******************************************************* */
+
+.map-placeholder {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+.map-placeholder h2 {
+    color: #8f4c00; 
+    margin-bottom: 15px;
+}
+
+/* ******************** GALLERY გვერდის სტილი ******************** */
+.gallery-section {
+    padding: 30px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; 
+    margin-top: 30px;
+}
+
+.gallery-item {
+    overflow: hidden; 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(103, 102, 102, 0.2);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: opacity 0.3s;
+}
+
+/* ******************** მტივტივა ღილაკის სტილი ******************** */
+.floating-messenger-button {
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px;  
+    width: 60px;
+    height: 60px;
+    background-color: #007bff; 
+    border-radius: 50%; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    z-index: 9999; 
+}
+
+.floating-messenger-button:hover {
+    transform: scale(1.1); 
+}
+
+.floating-messenger-button img {
+    width: 32px; 
+    height: 32px;
+}
+
+/* ******************** მობილურის ადაპტაცია ******************** */
+@media (max-width: 900px) {
+    
+    /* 1. Header ადაპტაცია (ჰამბურგერ მენიუს კონტროლი) */
+    header {
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .hamburger-menu-toggle {
+        display: block; 
+    }
+    
+    /* მენიუს დამალვა და ანიმაციის მომზადება (Slide-in) */
+    header nav {
+        position: fixed; 
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 55%; 
+        max-width: 250px; 
+        
+        background-color: rgba(65, 30, 0, 0.98); 
+        border-left: 1px solid #FFD700; 
+        
+        transition: transform 0.4s ease-in-out; 
+        transform: translateX(100%); 
+        
+        display: block; 
+        z-index: 90;
+    }
+    
+    header nav ul {
+        flex-direction: column; 
+        padding: 10px 0;
+        height: 100%; 
+        justify-content: flex-start; 
+        padding-top: 80px; 
+        
+        /* ცენტრირება: UL-ის ელემენტები ცენტრშია */
+        align-items: center; 
+    }
+    
+    header nav ul li {
+        margin: 15px auto; /* ✅ გამოკვეთილი ვერტიკალური დაშორება */
+        padding: 0;
+        text-align: center; 
+        width: 90%; 
+        border-bottom: none; 
+    }
+    
+    header nav ul li a {
+        display: block; 
+        padding: 8px 0; /* ✅ ღილაკის ვერტიკალური სიმაღლე შემცირებულია */
+        font-weight: bold;
+        
+        /* ✅ ღილაკის დიზაინი */
+        background-color: #8f4c00; /* ყავისფერი ფონი */
+        color: #f0f0f0;           /* ღია ნაცრისფერი ტექსტი */
+        border-radius: 5px;       
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    header nav ul li a:hover {
+        background-color: #6d3a03; /* მუქი ყავისფერი hover-ზე */
+        color: #FFD700;           /* ოქროსფერი ტექსტი hover-ზე */
+        opacity: 1; 
+    }
+    
+    /* 4. როდესაც JS ამატებს 'active' კლასს, გამოჩნდეს მენიუ */
+    header nav.active {
+        transform: translateX(0); 
+    }
+    
+    /* 2. კურსების Preview ადაპტაცია */
+    .course-cards {
+        flex-direction: column; 
+        gap: 15px;
+    }
+    .course-cards article {
+        width: 100%;
+        margin-bottom: 5px; 
+    }
+    
+    /* 3. კონტაქტის გვერდის ადაპტაცია */
+    .contact-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    /* რუკის სიმაღლის შემცირება მობილურზე */
+    .map-placeholder iframe {
+        height: 250px; 
+    }
+    
+    /* Hero სექციის ფოტოს რეგულირება */
+    #hero img {
+        max-width: 90%;
+    }
+    
+    /* გალერეის ადაპტაცია */
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    /* მტივტივა ღილაკის მცირე ადაპტაცია */
+    .floating-messenger-button {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+    .floating-messenger-button img {
+        width: 28px;
+        height: 28px;
+    }
+}
+/* ******************** მტივტივა FACEBOOK ღილაკის სტილი ******************** */
+.floating-facebook-button {
+    /* პოზიცია: იგივე, რაც მესენჯერი, მაგრამ უფრო მაღლა */
+    position: fixed; 
+    bottom: 100px; /* ✅ 100px-ით მაღლა Messenger-ის ღილაკზე */
+    right: 30px;  
+    
+    /* ზომა და დიზაინი: იგივე ზომა */
+    width: 60px;
+    height: 60px;
+    background-color: #ffffff; /* ✅ Facebook ლურჯი */
+    border-radius: 50%; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: transform 0.3s ease;
+    z-index: 9998; /* ოდნავ დაბალი Z-ინდექსი Messenger-ზე */
+}
+
+.floating-facebook-button:hover {
+    transform: scale(1.1); 
+}
+
+.floating-facebook-button img {
+    width: 32px; 
+    height: 32px;
+}
+
+/* ✅ მობილურზე ადაპტაცია */
+@media (max-width: 900px) {
+    /* ... მტივტივა Messenger-ის ადაპტაცია ... */
+    
+    /* FACEBOOK-ის ადაპტაცია */
+    .floating-facebook-button {
+        bottom: 80px; /* ✅ მობილურზე 80px-ით მაღლა */
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        z-index: 9998;
+    }
+    .floating-facebook-button img {
+        width: 28px;
+        height: 28px;
+    }
+}
+/* ******************** კურსების რეგისტრაციის ღილაკის სტილი ******************** */
+.register-button {
+    display: block; /* რომ მთელი სიგანე დაიკავოს */
+    text-align: center;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #FFD700; /* ოქროსფერი */
+    color: #654321; /* მუქი ყავისფერი ტექსტი */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid #FFD700;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    font-size: 16px;
+}
+
+.register-button:hover {
+    background-color: #654321; /* მუქი ყავისფერი hover-ზე */
+    color: #FFD700; /* ოქროსფერი ტექსტი */
+    border-color: #FFD700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+/* ******************** კურსის ლოგოების სტილი (ინდექს გვერდზე) ******************** */
+
+.course-cards article {
+    /* აუცილებელია, რომ ლოგო იყოს article-ის შიგნით პოზიციონირებული */
+    position: relative; 
+    overflow: hidden; /* იმისთვის, რომ ლოგო არ გავიდეს საზღვრებს გარეთ */
+}
+
+.course-logo {
+    position: absolute;
+    top: -20px; /* ოდნავ ზემოთ ამოწეული */
+    right: -20px; /* ოდნავ მარჯვნივ ამოწეული */
+    width: 100px;
+    height: 100px;
+    opacity: 0.2; /* გამჭვირვალობა 20% */
+    background-size: contain; /* ლოგოს ზომა */
+    background-repeat: no-repeat;
+    z-index: 1; /* რომ ლოგო იყოს ტექსტის ქვეშ */
+    pointer-events: none; /* რომ ლოგომ ხელი არ შეუშალოს ტექსტის არჩევას */
+    transform: rotate(15deg); /* მცირე დახრილობა ვიზუალური ეფექტისთვის */
+}
+
+/* ლოგოების ინდივიდუალური ფონური სურათები (შეგიძლიათ შეცვალოთ თქვენი სურათებით) */
+
+/* 1. ხელოვნური ინტელექტი (AI) - მაგალითად: რობოტის თავი */
+.logo-ai {
+    background-image: url('../Images/AI_ROB.webp'); 
+    /* ეს არის ფიქტიური სურათი. თუ გაქვთ AI ლოგო, ჩაანაცვლეთ */
+}
+
+/* 2. კომპიუტერული მეცნიერებები (CS) - მაგალითად: მონიტორი */
+.logo-cs {
+    background-image: url('../Images/CompScience.png');
+}
+
+/* 3. Scratch - მაგალითად: კატა */
+.logo-scratch {
+    background-image: url('../Images/scratchcat.png');
+}
+
+/* 4. ინგლისური - მაგალითად: დიდი ბრიტანეთის დროშა ან წიგნი */
+.logo-english {
+    background-image: url('../Images/English.png');
+}
+
+/* 5. Python - მაგალითად: პითონის გველი */
+.logo-python {
+    background-image: url('../Images/python.png');
+}
+
+/* 6. C# - მაგალითად: # სიმბოლო */
+.logo-csharp {
+    background-image: url('../Images/CSharp.png');
+}
+/* ******************** ბუს ანიმაცია (Owl Flight Animation) ******************** */
+
+/* ******************** ბუს ანიმაცია (Owl Flight Animation) ******************** */
+
+#flying-owl {
+    /* გამოიყენეთ თქვენი ბუს სურათის გზა! */
+    background-image: url('../Images/OWL.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    /* პოზიციონირება */
+    position: absolute;
+    width: 200px;  /* ბუს ზომა */
+    height: 200px;
+    z-index: 11; /* ✅ გაზრდილი Z-ინდექსი (Hero Content-ს აქვს 10) */
+    
+    /* ანიმაცია */
+    animation: flyAcross 18s linear infinite; /* 30 წამიანი, უწყვეტი, თანაბარი სისწრაფით */
+    
+    /* საწყისი მდგომარეობა: ეკრანის ზედა მარცხენა კუთხის გარეთ */
+    top: 5%;
+    left: -10%;
+    
+    /* ✅ დამატებულია: კურსორის შეცვლა და pointer-events-ის დაშვება */
+    cursor: pointer;
+    pointer-events: auto; /* აუცილებელია, რომ დაკლიკება შესაძლებელი იყოს */
+    
+    /* ✅ დამატებულია: ტრანზიცია (Transition) ჩამოვარდნისთვის */
+    transition: transform 2s ease-in; 
+}
+/* ... დანარჩენი კოდი ... */
+/* ******************** ✅ ბუს ჩამოვარდნის ანიმაცია ******************** */
+#flying-owl.fall {
+    /* ტრანსფორმაცია: გადაადგილება Y ღერძის გასწვრივ, ეკრანის ქვემოთ, + მცირე ბრუნვა */
+    transform: translateY(150vh) rotate(360deg); 
+    /* ანიმაციის გაჩერება */
+    animation-play-state: paused; 
+}
+
+@keyframes flyAcross {
+    /* ანიმაციის საწყისი წერტილი (ეკრანის გარეთ) */
+    0% {
+        transform: translate(0, 0) rotate(0deg); /* საწყისი პოზიცია */
+    }
+    
+    /* ანიმაციის ბოლო წერტილი (ეკრანის ქვედა მარჯვენა კუთხის გარეთ) */
+    100% {
+        /* მოძრაობა: X-ღერძის გასწვრივ 110vw (ეკრანის 110%) და Y-ღერძის გასწვრივ 80vh (ეკრანის 80%) */
+        transform: translate(110vw, 80vh) rotate(5deg); 
+    }
+}
+
+/* მობილური ადაპტაცია: ანიმაციის ზომის შემცირება */
+@media (max-width: 900px) {
+    #flying-owl {
+        width: 50px; 
+        height: 50px;
+    }
+}
+/* ******************** მენიუს ფონის ეფექტი მობილურზე ******************** */
+/* როდესაც მენიუ ღიაა, BODY-ს ედება ეს კლასი */
+body.menu-open {
+    /* ეკრანის დაფარვა ნახევრად გამჭვირვალე ფენით */
+    position: relative; 
+    overflow: hidden; /* რომ არ მოხდეს გვერდის სქროლი მენიუს გახსნისას */
+}
+
+/* Back-drop ფენის შექმნა BODY-სთვის (მუშაობს მხოლოდ მობილურის ადაპტაციაში) */
+body.menu-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* მუქი გამჭვირვალე ფერი */
+    z-index: 80; /* რომ იყოს მენიუს ქვეშ (z-index: 90) და კონტენტზე მაღლა */
+}
+.course-detail h3 .old-price {
+    color: #ff0000; /* წითელი ფერი გადახაზვისთვის */
+    text-decoration: line-through; /* გადახაზვა */
+    font-weight: normal; 
+    font-size: 0.9em; /* ოდნავ პატარა შრიფტი */
+    margin-right: 10px;
+}
+
+.course-detail h3 .new-price {
+    color: #008000; /* მწვანე ფერი ახალი ფასისთვის */
+    font-weight: bold;
+    font-size: 1.2em; /* ახალი ფასის გამოსაკვეთად */
+}
