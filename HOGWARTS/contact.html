@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts Academy - კონტაქტი</title>
+    
+    <link rel="stylesheet" href="styles/style.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <header>
+        <h1>
+        <a href="index.html" class="logo-link">Hogwarts Academy</a>
+    </h1>
+        
+        <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        
+        <nav id="main-navigation"> 
+            <ul>
+                <li><a href="index.html">მთავარი</a></li>
+                <li><a href="about.html">ჩვენ შესახებ</a></li>
+                <li><a href="courses.html">კურსები</a></li>
+                <li><a href="gallery.html">გალერეა</a></li>
+                <li><a href="contact.html">კონტაქტი</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="page-title" data-aos="fade-down"> <h1>დაგვიკავშირდით</h1>
+            <p>ჩვენი გუნდი მზად არის, უპასუხოს თქვენს ყველა კითხვას.</p>
+        </section>
+
+        <div class="contact-container">
+            <section class="contact-form-section" data-aos="fade-right"> <h2>მოგვწერეთ შეტყობინება</h2>
+               <form action="https://formspree.io/f/xovkzeyv" method="POST" id="contactForm" onsubmit="return validateForm()">
+                    <label for="name">თქვენი სახელი და გვარი:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">ელ. ფოსტა:</label>
+                    <input type="email" id="email" name="_replyto" required>
+                    
+                    <label for="phone">ტელეფონის ნომერი (ფორმატი: +995 5XX XXX XXX):</label>
+                    <input type="tel" 
+                           id="phone" 
+                           name="phone_number" 
+                           value="+995 5" 
+                           placeholder="5XX XXX XXX"
+                           required 
+                           pattern="^\+995\s5\d{2}\s\d{3}\s\d{3}$"
+                           oninput="formatPhoneNumber(this)">
+                    
+                    <label for="course">კურსი, რომლითაც დაინტერესდით:</label>
+                    <select id="course" name="course_interest" required>
+                        <option value="" disabled selected>აირჩიეთ კურსი</option>
+                        <option value="AI_ML">ხელოვნური ინტელექტი და მანქანური სწავლება</option>
+                        <option value="Scratch">Scratch - პროგრამირების დასაწყისი (ბავშვებისთვის)</option>
+                        <option value="English">ინტენსიური სასაუბრო ინგლისური</option>
+                        <option value="CS_Fundamentals">კომპიუტერული მეცნიერებების საფუძვლები</option>
+                        <option value="Python">პრაქტიკული დაპროგრამება Python-ით</option>
+                        <option value="CSharp">C# პროგრამული ენა (აპლიკაციების განვითარება)</option>
+                        <option value="Other">სხვა საკითხი/ინფორმაცია</option>
+                    </select>
+
+                    <label for="message">შეტყობინება:</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+
+                    <button type="submit">გაგზავნა</button>
+                </form>
+            </section>
+
+            <section class="contact-info-section" data-aos="fade-left"> <h2>საკონტაქტო მონაცემები</h2>
+                <div class="info-item">
+                    <h3>ტელეფონი:</h3>
+                    <p>+995 599 65 16 75</p>
+                    <p>+995 551 48 90 60</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>ელ. ფოსტა:</h3>
+                    <p>hogwarts.academy.h.a@gmail.com</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>მისამართი:</h3>
+                    <p>თბილისი, საბურთალო, სულხან ცინცაძის ნომერი 10</p>
+                    <p>სამუშაო საათები: ორშაბათი-შაბათი, 10:00 - 20:00</p>
+                </div>
+                
+                <div class="info-item map-placeholder">
+                    <h2>ჩვენი ადგილმდებარეობა:</h2>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1067.0471584014092!2d44.771480013996005!3d41.72134236754665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x404472d87bbb9d2b%3A0xcd545d47bfacfeb0!2s10%20Sulkhan%20Tsintsadze%20St%2C%20T'bilisi%200160!5e0!3m2!1sen!2sge!4v1760998963091!5m2!1sen!2sge"
+                        style="border:0; border-radius: 8px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+
+        <div id="social-media">
+            <a href="https://www.facebook.com/profile.php?id=61569150579930" target="_blank">Facebook</a> | <a href="https://chat.whatsapp.com/DIOXh5DbpZp56BVkOpl1BF?mode=wwc" target="_blank">Whatsapp</a>
+        </div>
+        
+        <p>© 2025 Hogwarts Academy. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <a href="https://www.facebook.com/profile.php?id=61569150579930" 
+       target="_blank" 
+       class="floating-facebook-button" 
+       aria-label="Facebook გვერდი">
+        <img src="Images/facebook-logo.png" alt="Facebook ლოგო">
+    </a>
+
+    <a href="https://m.me/61569150579930" 
+       target="_blank" 
+       class="floating-messenger-button" 
+       aria-label="დაიწყე ჩატი Messenger-ში">
+        <img src="Images/facebook_messenger_icon.png" alt="Messenger Chat ლოგო">
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+      AOS.init({
+        duration: 1000, 
+        once: true 
+      });
+    </script>
+    
+    <script>
+    const PHONE_PREFIX = '+995 5';
+    const MAX_DIGITS = 9; // 5XX XXX XXX = 9 ციფრი
+    const PHONE_LENGTH = 14; // საბოლოო ფორმატი: +995 5XX XXX XXX
+
+    // 1. სახელი/გვარის ვალიდაცია
+    function validateForm() {
+        const nameField = document.getElementById('name').value.trim();
+        if (!/\s/.test(nameField)) {
+            alert('გთხოვთ, ჩაწეროთ როგორც სახელი, ისე გვარი (მაგალითად: ჰარი პოტერი).');
+            return false;
+        }
+
+        // 2. ტელეფონის ნომრის ვალიდაცია
+        const phoneField = document.getElementById('phone').value.trim();
+        const phoneRegex = /^\+995\s5\d{2}\s\d{3}\s\d{3}$/;
+
+        // თუ ნომერი შეყვანილია და არ ემთხვევა ფორმატს
+        if (phoneField.length > 0 && !phoneRegex.test(phoneField)) {
+             alert('გთხოვთ, შეიყვანოთ სწორი ქართული ტელეფონის ნომერი ფორმატში: +995 5XX XXX XXX.');
+             return false;
+        }
+
+        return true; // აგრძელებს ფორმის გაგზავნას
+    }
+
+    // ფუნქცია: ნომრის ავტომატური ფორმატირება
+    function formatPhoneNumber(input) {
+        // ამოიღეთ ყველა არაციფრული სიმბოლო პრეფიქსის შემდეგ
+        let rawNumbers = input.value.substring(6).replace(/\D/g, ''); 
+        
+        // შეზღუდეთ 9 ციფრით (5XX XXX XXX)
+        rawNumbers = rawNumbers.substring(0, MAX_DIGITS);
+        
+        let formatted = PHONE_PREFIX;
+        
+        // დაამატეთ სიცარიელეები (Space) საჭირო პოზიციებზე
+        if (rawNumbers.length > 0) {
+            // 5XX
+            formatted += rawNumbers.substring(0, 2);
+        }
+        
+        if (rawNumbers.length > 2) {
+            // XXX
+            formatted += ' ' + rawNumbers.substring(2, 5);
+        }
+        
+        if (rawNumbers.length > 5) {
+            // XXX
+            formatted += ' ' + rawNumbers.substring(5, 8);
+        }
+        
+        if (rawNumbers.length > 8) {
+             // ბოლო ციფრი
+            formatted += rawNumbers.substring(8, 9);
+        }
+        
+        input.value = formatted;
+    }
+    
+    // პრეფიქსის დაბლოკვისა და საწყისი მნიშვნელობის დაყენება
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phone');
+        
+        // საწყისი მნიშვნელობის დაყენება
+        if (!phoneInput.value.startsWith(PHONE_PREFIX)) {
+             phoneInput.value = PHONE_PREFIX;
+        }
+
+        // პრეფიქსის დაცვა წაშლისგან და მხოლოდ ციფრების დაშვება
+        phoneInput.addEventListener('keydown', function(event) {
+             const startPos = this.selectionStart;
+             const prefixLength = PHONE_PREFIX.length;
+             
+             // არ დაუშვათ წაშლა პრეფიქსის საზღვრებზე
+             if (startPos <= prefixLength && (event.key === 'Backspace' || event.key === 'Delete')) {
+                 event.preventDefault();
+             }
+             
+             // ნება დართეთ ისრის ღილაკებს (Arrow keys) და სხვა საკონტროლო ღილაკებს
+             if (event.key.length > 1 && event.key !== 'Backspace' && event.key !== 'Delete') {
+                return;
+             }
+             
+             // მხოლოდ ციფრების შეყვანა დაშვებულია
+             if (!/\d/.test(event.key) && event.key.length === 1 && event.key !== ' ') {
+                 event.preventDefault();
+             }
+        });
+        
+        // კურსორის პოზიციის დაცვა პრეფიქსზე ადრე
+        phoneInput.addEventListener('click', function() {
+            const prefixLength = PHONE_PREFIX.length;
+            if (this.selectionStart < prefixLength) {
+                this.selectionStart = prefixLength;
+                this.selectionEnd = prefixLength;
+            }
+        });
+    });
+
+    </script>
+    
+    <script src="Scripts/styles/menu.js"></script>
+</body>
+</html>
