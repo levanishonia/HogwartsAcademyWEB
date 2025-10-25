@@ -930,3 +930,47 @@ body.menu-open::before {
 .course-link:hover {
     color: #0056b3;
 }
+/* ******************** BACK TO TOP ღილაკის სტილი ******************** */
+.back-to-top {
+    position: fixed;
+    bottom: 30px; /* ან 100px-ზე თუ Messenger ღილაკთან ერთად არის */
+    left: 30px; /* მარცხენა მხარეს, რომ არ დაემთხვეს სხვა ღილაკებს */
+    width: 50px;
+    height: 50px;
+    background-color: #ffae00; /* ოქროსფერი */
+    color: #654321; /* მუქი ყავისფერი ისრისთვის */
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0; /* ნაგულისხმევად დამალული */
+    visibility: hidden; /* ნაგულისხმევად დამალული */
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.back-to-top:hover {
+    background-color: #654321;
+    color: #ffa200;
+    transform: scale(1.1);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* მობილურის ადაპტაცია (არ დაემთხვას სხვა მტივტივა ღილაკებს) */
+@media (max-width: 900px) {
+    .back-to-top {
+        left: 20px;
+        bottom: 20px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+    }
+}
