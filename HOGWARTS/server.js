@@ -20,7 +20,7 @@ const io = socketIo(server, {
     }
 }); 
 
-const PORT = process.env.PORT || 3000; // ✅ PORT ცვლადი სწორად იღებს პორტს ჰოსტინგის გარემოდან
+const PORT = 3000;
 const NEWS_FILE = path.join(__dirname, 'gryffindor_news.json'); // ✅ ფაილი მონაცემების შესანახად
 
 // ✅ Express-ის შუალედური პროგრამა (Middleware) JSON-ის გასაანალიზებლად
