@@ -5,19 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>გრიფინდორის საიდუმლო ოთახი</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="gryffindor-bg">
     
     <main class="house-page">
         <section class="house-content" data-aos="zoom-in">
             <h2>მოგესალმებით, მამაცებო გრიფინდორელებო!</h2>
-            
             <p>მხოლოდ ყველაზე მამაცი გულები აღწევენ ამ ადგილამდე.</p>
             
-            <h3>საიდუმლო დავალება N1: კოდირება</h3>
-            <p>გამოიყენეთ პითონი, რომ იპოვოთ ჰერმიონის მიერ დაფარული წიგნის გვერდის ნომერი.</p>
+            <div class="news-section">
+                <h3>🏠 გრიფინდორის სიახლეები (ადმინისტრატორისთვის)</h3>
+                
+                <form id="newsForm" style="margin-bottom: 20px;">
+                    <input type="text" id="newsTitle" placeholder="სათაური" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <textarea id="newsContent" placeholder="სიახლის ტექსტი" rows="3" style="width: 100%; padding: 8px;"></textarea>
+                    <button type="submit" style="padding: 10px; background-color: #740001; color: #FFD700; border: none; cursor: pointer;">სიახლის დამატება</button>
+                </form>
+
+                <div id="newsFeed">
+                    <div class="news-item">
+                        <h4>🏰 კვირის შეკრება:</h4>
+                        <p>მომდევნო შაბათს, საღამოს 7 საათზე, დიდ დარბაზში! არ დაგავიწყდეთ საიდუმლო პაროლი.</p>
+                        <small>ატვირთა: პროფ. მაკგონაგელმა</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-section">
+                <h3>💬 გრიფინდორის მიმოწერა (ლაივ ჩატი)</h3>
+                <div class="chat-box" id="chatBox">
+                    <div class="chat-message other"><span>პროფ. მაკგონაგელი: მშვენიერია, რომ ეს ოთახი იპოვეთ!</span></div>
+                </div>
+                
+                <input type="text" id="chatInput" placeholder="შეიყვანეთ შეტყობინება..." style="width: 80%; padding: 8px;">
+                <button onclick="sendMessage()" style="width: 18%; padding: 8px; background-color: #740001; color: #FFD700; border: none; cursor: pointer;">გაგზავნა</button>
+            </div>
             
-            <a href="index.html" style="color: #FFD700; font-weight: bold;">დაბრუნდი აკადემიაში</a>
+            <a href="index.html" style="color: #FFD700; font-weight: bold; display: block; margin-top: 30px;">დაბრუნდი აკადემიაში</a>
         </section>
     </main>
 
@@ -27,6 +52,146 @@
     </script>
     <button id="backToTopBtn" class="back-to-top" aria-label="ასქროლვა გვერდის თავზე">&#9650;</button>
     <script src="Scripts/styles/backToTop.js"></script> 
+    <script src="/socket.io/socket.io.js"></script> 
     
+    <script>
+    // =========================================================
+    // ✅ 1. ცვლადების ინიციალიზაცია
+    // =========================================================
+    const socket = io(); 
+    const chatBox = document.getElementById('chatBox');
+    const newsFeed = document.getElementById('newsFeed');
+    
+    // დროებითი მომხმარებლის სახელი
+    const userName = 'გრიფინდორელი_' + Math.floor(Math.random() * 100);
+
+    // =========================================================
+    // ✅ 2. სიახლეების მართვა (Fetch API + Socket.IO)
+    // =========================================================
+
+    // ფუნქცია: სიახლეების HTML-ში დამატება
+    function addNewsToFeed(post) {
+        const newPost = document.createElement('div');
+        newPost.classList.add('news-item');
+        const formattedDate = new Date(post.timestamp).toLocaleDateString('ka-GE');
+
+        newPost.innerHTML = `
+            <h4>🔥 ${post.title}</h4>
+            <p>${post.content}</p>
+            <small>ატვირთა: ${post.user} | ${formattedDate}</small>
+        `;
+        // ახალი პოსტი დაემატოს სიის თავში
+        newsFeed.prepend(newPost); 
+    }
+    
+    // ფუნქცია: სიახლეების სერვერიდან წამოღება გვერდის ჩატვირთვისას
+    async function fetchInitialNews() {
+        try {
+            const response = await fetch('/api/news');
+            const news = await response.json();
+            
+            // წაშალეთ სტატიკური პოსტი, რომელსაც HTML-ში აქვს ადგილი
+            newsFeed.innerHTML = ''; 
+
+            // დაამატეთ ყველა შენახული სიახლე
+            news.forEach(post => addNewsToFeed(post));
+
+        } catch (error) {
+            console.error('სიახლეების ჩატვირთვის შეცდომა:', error);
+            newsFeed.innerHTML = '<p style="color:#FFD700;">სიახლეების ჩატვირთვა ვერ მოხერხდა.</p>';
+        }
+    }
+
+    // მოვლენა: ფორმის გაგზავნა (სიახლის დამატება)
+    document.getElementById('newsForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const title = document.getElementById('newsTitle').value;
+        const content = document.getElementById('newsContent').value;
+
+        if (!title || !content) {
+            alert('გთხოვთ, შეავსოთ როგორც სათაური, ისე ტექსტი.');
+            return;
+        }
+
+        // POST მოთხოვნის გაგზავნა სერვერზე
+        const response = await fetch('/api/news', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                title, 
+                content, 
+                user: "ადმინი (დროებით)" // ✅ ეს უნდა შეიცვალოს ადმინისტრატორის სახელად
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsContent').value = '';
+            alert('სიახლე წარმატებით დაემატა!');
+        } else {
+            alert('შეცდომა სიახლის დამატებისას: ' + result.message);
+        }
+    });
+    
+    // Socket.IO: მოუსმინეთ ახალ სიახლეებს
+    socket.on('newNewsPost', function(post) {
+        addNewsToFeed(post);
+    });
+    
+    // =========================================================
+    // ✅ 3. ჩატის ლოგიკა (Socket.IO - უცვლელი)
+    // =========================================================
+
+    // 1. შეტყობინების გაგზავნა სერვერზე
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const messageText = input.value.trim();
+        
+        if (messageText) {
+            const messageObject = {
+                user: userName,
+                text: messageText,
+                timestamp: new Date().toLocaleTimeString('ka-GE')
+            };
+            
+            socket.emit('chatMessage', messageObject); 
+            input.value = '';
+        }
+    }
+    
+    // 2. შეტყობინების მიღება სერვერიდან და HTML-ში დამატება
+    socket.on('chatMessage', function(msg) {
+        const isMe = msg.user === userName;
+        
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', isMe ? 'me' : 'other'); 
+        
+        // HTML სტრუქტურა მოდერნისტული დიზაინისთვის
+        messageElement.innerHTML = `
+            <div style="display:flex; flex-direction:column; align-items: ${isMe ? 'flex-end' : 'flex-start'};">
+                ${!isMe ? `<small style="font-size:12px; color:#FFD700; font-weight:bold; margin-bottom: 3px;">${msg.user}</small>` : ''}
+                <span>${msg.text}</span>
+                <small style="font-size:10px; opacity:0.6; margin-top:2px;">${msg.timestamp}</small>
+            </div>
+        `;
+        
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    // Enter-ზე გაგზავნის დაშვება ჩატში
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // ✅ 4. გვერდის ჩატვირთვისას სიახლეების წამოღება
+    document.addEventListener('DOMContentLoaded', fetchInitialNews);
+</script>
 </body>
 </html>

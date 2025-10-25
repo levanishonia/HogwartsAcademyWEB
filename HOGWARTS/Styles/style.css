@@ -1009,16 +1009,24 @@ body.menu-open::before {
 }
 
 /* გრიფინდორი */
+/* გრიფინდორი - გაძლიერებული ფონი */
 .gryffindor-bg {
-    background-image: url('../Images/HA_HALL.jpg'); /* ან ლომის ლოგო */
+    /* მუქი წითელი ფილტრი + დარბაზის სურათი */
+    background: linear-gradient(rgba(116, 0, 1, 0.9), rgba(116, 0, 1, 0.8)), 
+                url('../Images/HA_HALL.jpg') no-repeat center center fixed; /* HA_HALL.jpg არის ჰოგვარტსის დარბაზი */
+    background-size: cover;
+    color: #f0f0f0; 
 }
 
 .gryffindor-bg .house-content {
-    border-color: #740001; /* მუქი წითელი */
+    border: 3px solid #FFD700; /* ოქროსფერი საზღვარი */
+    background-color: rgba(0, 0, 0, 0.75); 
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.5); /* მძლავრი ოქროსფერი ჩრდილი */
 }
 
-.gryffindor-bg .house-content h2 {
-    color: #FFD700; /* ოქროსფერი */
+.gryffindor-bg .house-content h2,
+.gryffindor-bg .house-content h3 {
+    color: #FFD700; /* ოქროსფერი სათაურები */
 }
 
 /* სლიზერინი */
@@ -1125,4 +1133,116 @@ body.menu-open::before {
         margin: 20px auto;
         max-width: 90%;
     }
+}
+/* ******************** მოდერნისტული CHAT სტილი ******************** */
+
+.chat-section {
+    width: 100%;
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.05); /* ძალიან ღია ფონი */
+    padding: 0; /* padding მოვაშოროთ გარე კონტეინერიდან */
+    border-radius: 10px;
+    overflow: hidden; /* კუთხეები */
+}
+
+.chat-box {
+    height: 400px; /* გაზრდილი სიმაღლე */
+    overflow-y: auto;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1); /* ოდნავ ღია ფონი შეტყობინებებისთვის */
+    border: none; 
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    display: flex; /* რომ შეტყობინებები სწორად იყოს პოზიციონირებული */
+    flex-direction: column;
+}
+
+/* შეტყობინების კონტეინერი */
+.chat-message {
+    display: flex; /* შიდა ელემენტების პოზიციონირება */
+    margin-bottom: 15px;
+    max-width: 80%; /* შეტყობინების მაქსიმალური სიგანე */
+    align-items: flex-end; /* რომ დრო იყოს შეტყობინების ქვემოთ */
+}
+
+/* ჩემი შეტყობინებები (მარჯვნივ) */
+.chat-message.me {
+    margin-left: auto; /* აგზავნის მარჯვნივ */
+    flex-direction: row-reverse; /* ცვლის ელემენტების თანმიმდევრობას (სურათი/ტექსტი) */
+}
+
+/* სხვა მომხმარებლის შეტყობინებები (მარცხნივ) */
+.chat-message.other {
+    margin-right: auto;
+    flex-direction: row;
+}
+
+/* შეტყობინების ბუშტი */
+.chat-message span {
+    padding: 10px 15px;
+    border-radius: 20px; /* მომრგვალებული კუთხეები */
+    font-size: 15px;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.chat-message.me span {
+    background-color: #FFD700; /* ოქროსფერი (როგორც Messenger-ის ლურჯი) */
+    color: #333;
+    border-bottom-right-radius: 5px; /* კუთხის გასწორება */
+}
+
+.chat-message.other span {
+    background-color: #740001; /* გრიფინდორის წითელი (როგორც Messenger-ის რუხი) */
+    color: white;
+    border-bottom-left-radius: 5px; /* კუთხის გასწორება */
+}
+
+/* მომხმარებლის სახელი და დრო */
+.chat-message small {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-left: 10px;
+    white-space: nowrap; /* რომ დრო არ გადავიდეს ახალ ხაზზე */
+}
+
+.chat-message.me small {
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+/* ჩატის ქვედა პანელი (შეყვანა და ღილაკი) */
+.chat-section input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px; /* მრგვალი ფორმა */
+    margin: 10px 0 10px 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.chat-section button {
+    width: 18%;
+    padding: 10px 0;
+    margin-right: 10px;
+    border-radius: 20px;
+    background-color: #FFD700 !important; /* ოქროსფერი გაგზავნა */
+    color: #740001 !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-section button:hover {
+    background-color: #ffc400 !important;
+}
+
+/* ახალი პოსტების განყოფილების გაუმჯობესება */
+.news-section {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
