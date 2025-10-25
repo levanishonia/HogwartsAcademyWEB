@@ -3,15 +3,24 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-// ✅ ახალი: Node.js-ის ფაილური სისტემის მოდული მონაცემთა შესანახად
+// ✅ Node.js-ის ფაილური სისტემის მოდული მონაცემთა შესანახად
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server); 
 
-const PORT = 3000;
+// 🔑 ცვლილება: Socket.IO-ს ინიციალიზაცია CORS-ით, რაც აუცილებელია, რომ კავშირი დამყარდეს
+// თუ საიტი და სერვერი სხვადასხვა დომენზეა (რაც ჰოსტინგზე ხშირად ხდება).
+// უსაფრთხოების გასაუმჯობესებლად, origin: "*" ჩაანაცვლეთ თქვენი ვებ-გვერდის მისამართით (მაგალითად: https://www.yourdomain.com).
+const io = socketIo(server, {
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"]
+    }
+}); 
+
+const PORT = process.env.PORT || 3000; // ✅ PORT ცვლადი სწორად იღებს პორტს ჰოსტინგის გარემოდან
 const NEWS_FILE = path.join(__dirname, 'gryffindor_news.json'); // ✅ ფაილი მონაცემების შესანახად
 
 // ✅ Express-ის შუალედური პროგრამა (Middleware) JSON-ის გასაანალიზებლად
@@ -21,7 +30,7 @@ app.use(express.json());
 app.use(express.static(__dirname)); 
 
 // =========================================================
-// ✅ ახალი: მონაცემთა მართვის ფუნქციები
+// ✅ მონაცემთა მართვის ფუნქციები (ფაილური სისტემის გამოყენებით)
 // =========================================================
 
 // სიახლეების წაკითხვა ფაილიდან
@@ -50,7 +59,7 @@ function writeNews(news) {
 }
 
 // =========================================================
-// ✅ ახალი: API ენდპოინტები სიახლეებისთვის
+// ✅ API ენდპოინტები სიახლეებისთვის
 // =========================================================
 
 // GET /api/news: ყველა სიახლის მიღება
@@ -59,7 +68,7 @@ app.get('/api/news', (req, res) => {
     res.json(news);
 });
 
-// POST /api/news: სიახლის დამატება (მოგვიანებით დავამატებთ ადმინისტრატორის შემოწმებას)
+// POST /api/news: სიახლის დამატება
 app.post('/api/news', (req, res) => {
     const { title, content, user } = req.body;
     
@@ -89,7 +98,7 @@ app.post('/api/news', (req, res) => {
 });
 
 // =========================================================
-// 2. Socket.IO კავშირების ლოგიკა (უცვლელი)
+// 2. Socket.IO კავშირების ლოგიკა
 // =========================================================
 
 io.on('connection', (socket) => {
@@ -109,5 +118,5 @@ io.on('connection', (socket) => {
 
 // 3. სერვერის გაშვება
 server.listen(PORT, () => {
-  console.log(`🚀 სერვერი მუშაობს: http://localhost:${PORT}/index.html`);
+  console.log(`🚀 სერვერი მუშაობს პორტზე ${PORT}`);
 });
