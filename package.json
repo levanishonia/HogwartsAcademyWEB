@@ -1,16 +1,23 @@
 {
   "name": "hogwartsacademyweb",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Hogwarts Academy-ის საინფორმაციო პორტალი და გრიფინდორის საიდუმლო ოთახის ლაივ ჩათი.",
+  "main": "HOGWARTS/index.html",
   "scripts": {
+    "start": "node HOGWARTS/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/levanishonia/HogwartsAcademyWEB.git"
   },
-  "keywords": [],
+  "keywords": [
+    "hogwarts",
+    "node",
+    "express",
+    "socket.io",
+    "chat"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
