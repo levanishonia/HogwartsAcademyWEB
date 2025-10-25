@@ -974,3 +974,155 @@ body.menu-open::before {
         font-size: 20px;
     }
 }
+/* ******************** საიდუმლო სახლის გვერდების სტილი ******************** */
+.house-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white; /* თეთრი ტექსტი ფონზე */
+}
+
+.house-content {
+    background-color: rgba(0, 0, 0, 0.7); /* მუქი, გამჭვირვალე ფონი კონტენტისთვის */
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 800px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid; /* სახლის ფერის საზღვარი */
+}
+
+.house-content h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.house-content p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+/* გრიფინდორი */
+.gryffindor-bg {
+    background-image: url('../Images/HA_HALL.jpg'); /* ან ლომის ლოგო */
+}
+
+.gryffindor-bg .house-content {
+    border-color: #740001; /* მუქი წითელი */
+}
+
+.gryffindor-bg .house-content h2 {
+    color: #FFD700; /* ოქროსფერი */
+}
+
+/* სლიზერინი */
+.slytherin-bg {
+    background-image: url('../Images/HA_HALL.jpg'); /* ან გველის ლოგო */
+}
+
+.slytherin-bg .house-content {
+    border-color: #1A472A; /* მუქი მწვანე */
+}
+
+.slytherin-bg .house-content h2 {
+    color: #AAAAAA; /* ვერცხლისფერი */
+}
+
+/* ჰაფლფაფი */
+.hufflepuff-bg {
+    background-image: url('../Images/HA_HALL.jpg'); /* ან მაჩვის ლოგო */
+}
+
+.hufflepuff-bg .house-content {
+    border-color: #F0C75E; /* ყვითელი/ოქროსფერი */
+}
+
+.hufflepuff-bg .house-content h2 {
+    color: #000000; /* შავი ტექსტი */
+}
+
+/* რეივენქლო */
+.ravenclaw-bg {
+    background-image: url('../Images/HA_HALL.jpg'); /* ან არწივის ლოგო */
+}
+
+.ravenclaw-bg .house-content {
+    border-color: #0E1A40; /* მუქი ლურჯი */
+}
+
+.ravenclaw-bg .house-content h2 {
+    color: #946E5E; /* ბრინჯაო */
+}
+/* ******************** საიდუმლო კოდის შეყვანის სტილი ******************** */
+#secret-code-container {
+    position: absolute; /* პოზიციონირება Hero სექციაზე */
+    bottom: 10px;      /* ოდნავ ქვემოთ, ფეხქვეშა ადგილი */
+    right: 50px;      /* მარჯვენა მხარეს */
+    z-index: 10;       /* რომ გამოჩნდეს ვიდეოს თავზე */
+    padding: 10px;
+    background-color: rgba(65, 30, 0, 0.9); /* მუქი ყავისფერი ფონი */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    max-width: 250px;
+    opacity: 0.95;
+    transition: opacity 0.3s;
+}
+
+#secret-code-container:hover {
+    opacity: 1;
+}
+
+#secret-code-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #FFD700; /* ოქროსფერი საზღვარი */
+    background-color: #3e2723; /* მუქი ფონი */
+    color: #FFD700; /* ოქროსფერი ტექსტი */
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Georgia', serif;
+}
+
+#secret-code-container button {
+    width: 100%;
+    padding: 8px;
+    background-color: #FFD700; /* ოქროსფერი */
+    color: #654321; /* მუქი ყავისფერი ტექსტი */
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#secret-code-container button:hover {
+    background-color: #654321;
+    color: #FFD700;
+}
+
+#code-message {
+    color: #FFD700;
+    margin-top: 5px;
+    font-size: 14px;
+    height: 16px; /* რომ არ ითამაშოს ზომებმა */
+}
+
+/* მობილურის ადაპტაცია: გადაიტანეთ ცენტრში */
+@media (max-width: 900px) {
+    #secret-code-container {
+        position: relative; /* რომ გამოჩნდეს Hero-ს კონტენტის ქვეშ */
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+        max-width: 90%;
+    }
+}
