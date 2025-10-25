@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server); 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const NEWS_FILE = path.join(__dirname, 'gryffindor_news.json'); // ✅ ფაილი მონაცემების შესანახად
 
 // ✅ Express-ის შუალედური პროგრამა (Middleware) JSON-ის გასაანალიზებლად
