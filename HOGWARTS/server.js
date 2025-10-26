@@ -96,6 +96,31 @@ app.post('/api/news', (req, res) => {
     
     res.status(201).json({ success: true, post: newPost });
 });
+// ... (არსებული app.post('/api/news', ...) ბლოკის შემდეგ) ...
+
+// DELETE /api/news/:id: სიახლის წაშლა
+app.delete('/api/news/:id', (req, res) => {
+    const postId = req.params.id;
+    let news = readNews();
+    
+    const initialLength = news.length;
+    
+    // გაფილტვრა: დატოვეთ მხოლოდ ის პოსტები, რომელთა ID არ ემთხვევა წასაშლელ ID-ს
+    news = news.filter(post => post.id !== postId);
+    
+    if (news.length < initialLength) {
+        writeNews(news);
+        
+        // ✅ Socket.IO-თი შეტყობინების გაგზავნა ყველა კლიენტზე, რომ პოსტი წაიშალა
+        io.to('gryffindor_chat').emit('deleteNewsPost', { id: postId });
+        
+        return res.json({ success: true, message: `Post ${postId} deleted.` });
+    } else {
+        return res.status(404).json({ success: false, message: 'Post not found.' });
+    }
+});
+
+// ... (Socket.IO კავშირების ლოგიკა) ...
 
 // =========================================================
 // 2. Socket.IO კავშირების ლოგიკა
@@ -120,3 +145,4 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log(`🚀 სერვერი მუშაობს პორტზე ${PORT}`);
 });
+
