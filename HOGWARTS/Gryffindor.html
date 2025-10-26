@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>გრიფინდორის საიდუმლო ოთახი</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="Styles/style.css"> 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="gryffindor-bg">
@@ -66,20 +66,37 @@
     const userName = 'გრიფინდორელი_' + Math.floor(Math.random() * 100);
 
     // =========================================================
-    // ✅ 2. სიახლეების მართვა (Fetch API + Socket.IO)
+    // ✅ 2. სიახლეების მართვა (POST, FETCH, DELETE)
     // =========================================================
 
-    // ფუნქცია: სიახლეების HTML-ში დამატება
+    // ფუნქცია: სიახლეების HTML-ში დამატება (წაშლის ღილაკის ჩათვლით)
     function addNewsToFeed(post) {
+        // თუ პოსტი უკვე არსებობს (Socket.IO-ს გაორმაგების თავიდან ასაცილებლად)
+        if (document.getElementById(`news-post-${post.id}`)) {
+            return; 
+        }
+
         const newPost = document.createElement('div');
         newPost.classList.add('news-item');
+        newPost.id = `news-post-${post.id}`; // ✅ უნიკალური ID წაშლისთვის
+        
         const formattedDate = new Date(post.timestamp).toLocaleDateString('ka-GE');
 
         newPost.innerHTML = `
             <h4>🔥 ${post.title}</h4>
             <p>${post.content}</p>
-            <small>ატვირთა: ${post.user} | ${formattedDate}</small>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+                <small>ატვირთა: ${post.user} | ${formattedDate}</small>
+                <button class="delete-news-btn" 
+                        data-post-id="${post.id}" 
+                        style="background-color: #A00000; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; font-size: 12px; transition: background-color 0.2s;"
+                        onmouseover="this.style.backgroundColor='#740001';"
+                        onmouseout="this.style.backgroundColor='#A00000';">
+                    წაშლა
+                </button>
+            </div>
         `;
+        
         // ახალი პოსტი დაემატოს სიის თავში
         newsFeed.prepend(newPost); 
     }
@@ -90,7 +107,7 @@
             const response = await fetch('/api/news');
             const news = await response.json();
             
-            // წაშალეთ სტატიკური პოსტი, რომელსაც HTML-ში აქვს ადგილი
+            // წაშალეთ საწყისი HTML-ის პოსტი
             newsFeed.innerHTML = ''; 
 
             // დაამატეთ ყველა შენახული სიახლე
@@ -99,6 +116,30 @@
         } catch (error) {
             console.error('სიახლეების ჩატვირთვის შეცდომა:', error);
             newsFeed.innerHTML = '<p style="color:#FFD700;">სიახლეების ჩატვირთვა ვერ მოხერხდა.</p>';
+        }
+    }
+
+    // ფუნქცია: სერვერზე წაშლის მოთხოვნის გასაგზავნად
+    async function deleteNewsPost(postId) {
+        if (!confirm('ნამდვილად გსურთ ამ სიახლის წაშლა?')) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/news/${postId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                // ლოკალურად წაშლა (Socket.IO-თი განახლების თავიდან ასაცილებლად)
+                document.getElementById(`news-post-${postId}`).remove();
+            } else {
+                const error = await response.json();
+                alert('წაშლის შეცდომა: ' + error.message);
+            }
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            alert('შეცდომა სერვერთან კავშირისას.');
         }
     }
 
@@ -113,7 +154,6 @@
             return;
         }
 
-        // POST მოთხოვნის გაგზავნა სერვერზე
         const response = await fetch('/api/news', {
             method: 'POST',
             headers: {
@@ -122,7 +162,7 @@
             body: JSON.stringify({ 
                 title, 
                 content, 
-                user: "ადმინი (დროებით)" // ✅ ეს უნდა შეიცვალოს ადმინისტრატორის სახელად
+                user: "ადმინი (დროებით)"
             })
         });
 
@@ -131,22 +171,38 @@
         if (result.success) {
             document.getElementById('newsTitle').value = '';
             document.getElementById('newsContent').value = '';
+            // არ გვჭირდება addNewsToFeed აქ, რადგან Socket.IO გამოაგზავნის მას
             alert('სიახლე წარმატებით დაემატა!');
         } else {
             alert('შეცდომა სიახლის დამატებისას: ' + result.message);
         }
     });
-    
+
     // Socket.IO: მოუსმინეთ ახალ სიახლეებს
     socket.on('newNewsPost', function(post) {
         addNewsToFeed(post);
     });
+
+    // Socket.IO: მოუსმინეთ წაშლის ევენტს სხვა კლიენტებიდან
+    socket.on('deleteNewsPost', function(data) {
+        const element = document.getElementById(`news-post-${data.id}`);
+        if (element) {
+            element.remove();
+        }
+    });
+
+    // ✅ ახალი: ღილაკებზე დაჭერის მართვა (წაშლა ღილაკისთვის)
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-news-btn')) {
+            const postId = e.target.getAttribute('data-post-id');
+            deleteNewsPost(postId);
+        }
+    });
     
     // =========================================================
-    // ✅ 3. ჩატის ლოგიკა (Socket.IO - უცვლელი)
+    // ✅ 3. ჩატის ლოგიკა (Socket.IO)
     // =========================================================
 
-    // 1. შეტყობინების გაგზავნა სერვერზე
     function sendMessage() {
         const input = document.getElementById('chatInput');
         const messageText = input.value.trim();
@@ -163,14 +219,12 @@
         }
     }
     
-    // 2. შეტყობინების მიღება სერვერიდან და HTML-ში დამატება
     socket.on('chatMessage', function(msg) {
         const isMe = msg.user === userName;
         
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message', isMe ? 'me' : 'other'); 
         
-        // HTML სტრუქტურა მოდერნისტული დიზაინისთვის
         messageElement.innerHTML = `
             <div style="display:flex; flex-direction:column; align-items: ${isMe ? 'flex-end' : 'flex-start'};">
                 ${!isMe ? `<small style="font-size:12px; color:#FFD700; font-weight:bold; margin-bottom: 3px;">${msg.user}</small>` : ''}
@@ -183,7 +237,6 @@
         chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // Enter-ზე გაგზავნის დაშვება ჩატში
     document.getElementById('chatInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             sendMessage();
